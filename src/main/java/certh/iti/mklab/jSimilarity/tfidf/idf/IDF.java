@@ -46,6 +46,8 @@ public abstract class IDF {
      */
     public abstract HashMap calculate();
 
+    public abstract double maxIDF();
+
     /**
      * returns a small description of the metric
      *

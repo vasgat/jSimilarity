@@ -15,7 +15,7 @@
  */
 package certh.iti.mklab.jSimilarity.tfidf.idf;
 
-import certh.iti.mklab.jsimilarity.tfidf.DocumentFrequency;
+import certh.iti.mklab.jSimilarity.tfidf.DocumentFrequency;
 import certh.iti.mklab.jSimilarity.documentUtils.Corpus;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -76,5 +76,10 @@ public class InverseDocumentFrequency extends IDF {
                 + " obtained by dividing the total number of documents by the number "
                 + "of documents containing the token, and then taking the logarithm "
                 + "of that quotient.";
+    }
+
+    @Override
+    public double maxIDF() {
+        return Math.log(corpus.size() * 1D);
     }
 }

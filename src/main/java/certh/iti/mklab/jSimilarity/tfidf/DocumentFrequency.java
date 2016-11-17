@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package certh.iti.mklab.jsimilarity.tfidf;
+package certh.iti.mklab.jSimilarity.tfidf;
 
 import certh.iti.mklab.jSimilarity.documentUtils.Corpus;
-import certh.iti.mklab.jSimilarity.documentUtils.TextDocument;
+import certh.iti.mklab.jSimilarity.documentUtils.Document;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -38,11 +38,10 @@ public class DocumentFrequency {
     public static HashMap<String, Integer> calculate(Corpus corpus) {
         HashMap<String, Integer> df = new HashMap();
 
-        System.out.println(corpus.size());
-        Iterator<TextDocument> it = corpus.iterator();
+        Iterator<Document> it = corpus.iterator();
 
         while (it.hasNext()) {
-            TextDocument current_document = it.next();
+            Document current_document = it.next();
             HashSet words = new HashSet(current_document.BagOfWords.keySet());
 
             Iterator<String> setOfWords = words.iterator();

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package certh.iti.mklab.jsimilarity.tfidf;
+package certh.iti.mklab.jSimilarity.tfidf;
 
 import certh.iti.mklab.jSimilarity.stringsimilarities.CosineSimilarity;
 import certh.iti.mklab.jSimilarity.documentUtils.BasicTokenizer;
 import certh.iti.mklab.jSimilarity.documentUtils.Corpus;
-import certh.iti.mklab.jSimilarity.documentUtils.TextDocument;
+import certh.iti.mklab.jSimilarity.documentUtils.Document;
 import certh.iti.mklab.jSimilarity.tfidf.idf.IDF;
 import certh.iti.mklab.jSimilarity.tfidf.idf.InverseDocumentFrequency;
 import certh.iti.mklab.jSimilarity.tfidf.tf.NormalizedTermFrequency;
@@ -40,13 +40,14 @@ public class TFIDF {
     private IDF idf;
     private TF tf;
     private HashMap<String, HashMap<String, Double>> tfidf;
+    private HashMap<String, Double> idf_weights;
 
     /**
      * TFIDF constructor
      *
      * @param corpus
      */
-    public TFIDF(Corpus corpus) {
+    public TFIDF(Corpus<Document> corpus) {
         this.corpus = corpus;
     }
 
@@ -82,12 +83,12 @@ public class TFIDF {
             tf = new NormalizedTermFrequency(new BasicTokenizer());
         }
 
-        HashMap<String, Double> idf_weights = idf.calculate();
+        idf_weights = idf.calculate();
 
-        Iterator<TextDocument> collection = corpus.iterator();
+        Iterator<Document> collection = corpus.iterator();
 
         while (collection.hasNext()) {
-            TextDocument document = collection.next();
+            Document document = collection.next();
 
             if (document.tf == null || document.tf.isEmpty()) {
                 document.implementTF(this.tf);
@@ -108,6 +109,34 @@ public class TFIDF {
             tfidf.put(document.id, tfidf_weights);
         }
 
+    }
+
+    /**
+     * Calculate tfidf weights of new incoming document
+     *
+     * @param new_document
+     */
+    public void calculate(Document new_document) {
+        if (new_document.tf == null || new_document.tf.isEmpty()) {
+            new_document.implementTF(this.tf);
+        }
+        Iterator tokens = new_document.tf.entrySet().iterator();
+
+        HashMap<String, Double> tfidf_weights = new HashMap();
+
+        while (tokens.hasNext()) {
+            Map.Entry<String, Double> tf_weights
+                    = (Map.Entry<String, Double>) tokens.next();
+            double tfidf_weight;
+            if (idf_weights.containsKey(tf_weights.getKey())) {
+                tfidf_weight = tf_weights.getValue() * idf_weights.get(tf_weights.getKey());
+            } else {
+                tfidf_weight = idf.maxIDF();
+            }
+
+            tfidf_weights.put(tf_weights.getKey(), tfidf_weight);
+        }
+        tfidf.put(new_document.id, tfidf_weights);
     }
 
     /**

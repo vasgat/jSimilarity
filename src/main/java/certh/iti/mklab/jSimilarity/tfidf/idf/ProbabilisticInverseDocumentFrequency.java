@@ -15,7 +15,7 @@
  */
 package certh.iti.mklab.jSimilarity.tfidf.idf;
 
-import certh.iti.mklab.jsimilarity.tfidf.DocumentFrequency;
+import certh.iti.mklab.jSimilarity.tfidf.DocumentFrequency;
 import certh.iti.mklab.jSimilarity.documentUtils.Corpus;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -73,5 +73,10 @@ public class ProbabilisticInverseDocumentFrequency extends IDF {
                 + "information the word provides, that is, whether the term is "
                 + "common or rare across all documents. Probabilistic Inverse Document Frequency "
                 + "is a variation of IDF and ProbabilisticIDF = log((N-nt)/nt";
+    }
+
+    @Override
+    public double maxIDF() {
+        return Math.log(corpus.size() * 1D - 1D);
     }
 }

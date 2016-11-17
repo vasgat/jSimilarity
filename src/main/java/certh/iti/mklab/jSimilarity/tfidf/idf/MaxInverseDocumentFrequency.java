@@ -16,7 +16,7 @@
 package certh.iti.mklab.jSimilarity.tfidf.idf;
 
 import certh.iti.mklab.jSimilarity.documentUtils.Corpus;
-import certh.iti.mklab.jsimilarity.tfidf.DocumentFrequency;
+import certh.iti.mklab.jSimilarity.tfidf.DocumentFrequency;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,6 +29,8 @@ import java.util.Map;
  * @author vasgat
  */
 public class MaxInverseDocumentFrequency extends IDF {
+
+    private int maxDF;
 
     /**
      * MaxInverseDocumentFrequency constructor
@@ -48,7 +50,7 @@ public class MaxInverseDocumentFrequency extends IDF {
     public HashMap<String, Double> calculate() {
         HashMap<String, Integer> df = DocumentFrequency.calculate(corpus);
         HashMap<String, Double> idf = new HashMap();
-        int max = Collections.max(df.values());
+        maxDF = Collections.max(df.values());
 
         Iterator it = df.entrySet().iterator();
         while (it.hasNext()) {
@@ -56,7 +58,7 @@ public class MaxInverseDocumentFrequency extends IDF {
 
             idf.put(
                     entry.getKey(),
-                    Math.log(1D + (max / entry.getValue().doubleValue()))
+                    Math.log(1D + (maxDF / entry.getValue().doubleValue()))
             );
         }
         return idf;
@@ -73,5 +75,10 @@ public class MaxInverseDocumentFrequency extends IDF {
                 + "information the word provides, that is, whether the term is "
                 + "common or rare across all documents. Max Inverse Document Frequency "
                 + "is a variation of IDF and MaxIDF = log (1+max(n't)/nt).";
+    }
+
+    @Override
+    public double maxIDF() {
+        return Math.log(1D + maxDF);
     }
 }

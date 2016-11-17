@@ -15,7 +15,7 @@
  */
 package certh.iti.mklab.jSimilarity.tfidf.idf;
 
-import certh.iti.mklab.jsimilarity.tfidf.DocumentFrequency;
+import certh.iti.mklab.jSimilarity.tfidf.DocumentFrequency;
 import certh.iti.mklab.jSimilarity.documentUtils.Corpus;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -69,5 +69,10 @@ public class SmoothInverseDocumentFrequency extends IDF {
                 + "information the word provides, that is, whether the term is "
                 + "common or rare across all documents. Smooth Inverse Document Frequency "
                 + "is a variation of IDF and SmoothIDF = log(1+N/nt)";
+    }
+
+    @Override
+    public double maxIDF() {
+        return Math.log(1D + corpus.size());
     }
 }

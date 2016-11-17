@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package certh.iti.mklab.jsimilarity.tfidf;
+package certh.iti.mklab.jSimilarity.tfidf;
 
 import certh.iti.mklab.jSimilarity.stringsimilarities.CosineSimilarity;
 import certh.iti.mklab.jSimilarity.documentUtils.Corpus;
