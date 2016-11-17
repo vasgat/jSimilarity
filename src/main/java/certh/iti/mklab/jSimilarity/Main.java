@@ -17,8 +17,8 @@ package certh.iti.mklab.jSimilarity;
 
 import certh.iti.mklab.jSimilarity.documentUtils.Corpus;
 import certh.iti.mklab.jSimilarity.documentUtils.TextDocument;
-import certh.iti.mklab.jsimilarity.tfidf.SoftTFIDF;
-import certh.iti.mklab.jsimilarity.tfidf.TFIDF;
+import certh.iti.mklab.jSimilarity.tfidf.SoftTFIDF;
+import certh.iti.mklab.jSimilarity.tfidf.TFIDF;
 
 /**
  *
@@ -27,16 +27,15 @@ import certh.iti.mklab.jsimilarity.tfidf.TFIDF;
 public class Main {
 
     public static void main(String[] args) {
-
-        TextDocument document1 = new TextDocument("Bank of China");
-        TextDocument document2 = new TextDocument("Bank of China Limited");
-        TextDocument document3 = new TextDocument("Adidas AG");
-        TextDocument document4 = new TextDocument("Adidas Group");
-        TextDocument document5 = new TextDocument("Adidas");
-        TextDocument document6 = new TextDocument("BMW Group");
-        TextDocument document7 = new TextDocument("Nike Inc");
-        TextDocument document8 = new TextDocument("PetroChina Company Limited");
-        TextDocument document9 = new TextDocument("PetroChina Comany");
+        TextDocument document1 = new TextDocument.Builder("Bank of China").build();
+        TextDocument document2 = new TextDocument.Builder("Bank of China Limited").build();
+        TextDocument document3 = new TextDocument.Builder("Adidas AG").build();
+        TextDocument document4 = new TextDocument.Builder("Adidas Group").build();
+        TextDocument document5 = new TextDocument.Builder("Adidas").build();
+        TextDocument document6 = new TextDocument.Builder("BMW Group").build();
+        TextDocument document7 = new TextDocument.Builder("Nike Inc").build();
+        TextDocument document8 = new TextDocument.Builder("PetroChina Company Limited").build();
+        TextDocument document9 = new TextDocument.Builder("PetroChina Comany").build();
 
         Corpus corpus = new Corpus();
         corpus.addDocument(document1);

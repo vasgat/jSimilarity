@@ -15,4 +15,5 @@ Any value defined here will override the pom.xml file value but is only applicab
 -->
         <netbeans.hint.license>apache20</netbeans.hint.license>
     </properties>
+    
 </project-shared-configuration>
