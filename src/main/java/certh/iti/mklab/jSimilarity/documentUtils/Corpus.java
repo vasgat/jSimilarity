@@ -17,16 +17,18 @@ package certh.iti.mklab.jSimilarity.documentUtils;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
 
 /**
- * Corpus is a large set of TextDocuments. Corpus implements Iterable abstract
- * class to iterate to the set of documents. 
+ * Corpus is a large collection of elements T. Corpus implements Iterable
+ * abstract class to iterate to the set of documents.
  *
  * @author vasgat
  */
-public class Corpus<TextDocument> implements Iterable<TextDocument> {
+public class Corpus<T> implements Iterable<T> {
 
-    private HashSet<TextDocument> corpus;
+    private HashSet<T> corpus;
 
     /**
      * Corpus constructor
@@ -40,7 +42,7 @@ public class Corpus<TextDocument> implements Iterable<TextDocument> {
      *
      * @param document
      */
-    public void addDocument(TextDocument document) {
+    public void addDocument(T document) {
         corpus.add(document);
     }
 
@@ -58,9 +60,18 @@ public class Corpus<TextDocument> implements Iterable<TextDocument> {
      * @return the iterator of the corpus
      */
     @Override
-    public Iterator<TextDocument> iterator() {
-        Iterator<TextDocument> it = corpus.iterator();
+    public Iterator<T> iterator() {
+        Iterator<T> it = corpus.iterator();
         return it;
     }
 
+    /**
+     *
+     * @param predicate
+     * @return
+     */
+    public Iterator<T> iterator(Predicate<T> predicate) {
+        HashSet subset = new HashSet(CollectionUtils.select(corpus, predicate));
+        return subset.iterator();
+    }
 }
