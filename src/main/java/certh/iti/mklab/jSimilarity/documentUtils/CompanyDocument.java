@@ -15,6 +15,7 @@
  */
 package certh.iti.mklab.jSimilarity.documentUtils;
 
+import static certh.iti.mklab.jSimilarity.documentUtils.TextDocument.DEFAULT_TOKENIZER;
 import certh.iti.mklab.jSimilarity.tfidf.tf.RawTermFrequency;
 import java.util.HashMap;
 import java.util.UUID;
@@ -23,9 +24,11 @@ import java.util.UUID;
  *
  * @author vasgat
  */
-public class TextDocument extends Document {
+public class CompanyDocument extends Document {
 
-    private TextDocument(Builder builder) {
+    public String country;
+
+    private CompanyDocument(Builder builder) {
         if (builder.id == null) {
             super.id = UUID.randomUUID().toString();
         } else {
@@ -40,6 +43,7 @@ public class TextDocument extends Document {
         super.raw_term_frequency = new RawTermFrequency(tokenizer);
         super.BagOfWords = raw_term_frequency.calculate(contents);
         super.tf = new HashMap();
+        this.country = builder.country;
     }
 
     public static class Builder {
@@ -47,17 +51,23 @@ public class TextDocument extends Document {
         private String id;
         private final String contents;
         private Tokenizer tokenizer;
+        private String country;
 
         public Builder(String contents) {
             this.contents = contents;
         }
 
-        public final Builder id(String id) {
+        public Builder id(String id) {
             this.id = id;
             return this;
         }
 
-        public final Builder tokenizer() {
+        public Builder country(String country) {
+            this.country = country;
+            return this;
+        }
+
+        public Builder tokenizer() {
             this.tokenizer = DEFAULT_TOKENIZER;
             return this;
         }
@@ -67,8 +77,8 @@ public class TextDocument extends Document {
             return this;
         }
 
-        public TextDocument build() {
-            return new TextDocument(this);
+        public CompanyDocument build() {
+            return new CompanyDocument(this);
         }
     }
 }
