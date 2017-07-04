@@ -92,16 +92,9 @@ public class BasicTokenizer extends Tokenizer {
             char ch = contents.charAt(cursor);
             if (Character.isWhitespace(ch)) {
                 cursor++;
-            } else if (Character.isLetter(ch)) {
+            } else if (Character.isLetter(ch) || Character.isDigit(ch)) {
                 StringBuffer buf = new StringBuffer("");
-                while ((cursor < contents.length()) && (Character.isLetter(contents.charAt(cursor)))) {
-                    buf.append(contents.charAt(cursor));
-                    cursor++;
-                }
-                tokens.add(transform(buf.toString()));
-            } else if (Character.isDigit(ch)) {
-                StringBuffer buf = new StringBuffer("");
-                while ((cursor < contents.length()) && (Character.isDigit(contents.charAt(cursor)))) {
+                while ((cursor < contents.length()) && (Character.isLetter(contents.charAt(cursor)) || Character.isDigit(contents.charAt(cursor)))) {
                     buf.append(contents.charAt(cursor));
                     cursor++;
                 }
