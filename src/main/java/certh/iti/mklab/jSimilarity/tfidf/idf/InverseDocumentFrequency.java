@@ -56,7 +56,7 @@ public class InverseDocumentFrequency extends IDF {
         while (it.hasNext()) {
             Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) it.next();
 
-            idf.put(entry.getKey(), Math.log(corpus.size() / entry.getValue().doubleValue()));
+            idf.put(entry.getKey(), 1+Math.log((corpus.size() / entry.getValue().doubleValue())));
         }
 
         return idf;
