@@ -17,10 +17,12 @@ package certh.iti.mklab.jSimilarity.tfidf;
 
 import certh.iti.mklab.jSimilarity.stringsimilarities.CosineSimilarity;
 import certh.iti.mklab.jSimilarity.documentUtils.Corpus;
+import certh.iti.mklab.jSimilarity.documentUtils.Document;
 import certh.iti.mklab.jSimilarity.stringsimilarities.JaroWinklerDistance;
 import certh.iti.mklab.jSimilarity.stringsimilarities.Similarity;
+
+import java.util.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * SoftTFIDF implements CosineSimilarity and overrides the computation of the
@@ -134,6 +136,15 @@ public class SoftTFIDF extends CosineSimilarity {
         }
 
         return dot_product;
+    }
+
+    /**
+     * Calculate tfidf weights of new incoming document
+     *
+     * @param new_document
+     */
+    public void calculate(Document new_document) {
+        this.tfidf.calculate(new_document);
     }
 
     /**
